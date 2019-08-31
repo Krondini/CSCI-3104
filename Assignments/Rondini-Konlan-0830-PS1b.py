@@ -13,21 +13,18 @@ def countFlips(n):
 
 	flips = 0
 	for i in range(len(arr)):
-		if(arr[i] > i+1):
-			flips += 1
+		for j in range(i, len(arr)):
+			if(arr[i] > arr[j]):
+				flips += 1	
+			
 
 	return flips
-
-def makePlot(n, numFlips):
-	print("Hello")
-	
-	plt.show()
 
 def main(argv):
 	sizeArr = 2
 	arrN = []
 	arrFlip = []
-	while(sizeArr < 2**20):
+	while(sizeArr < 2**12):
 		flips = countFlips(sizeArr)
 		arrN.append(sizeArr)
 		arrFlip.append(flips)
