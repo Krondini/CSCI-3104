@@ -35,6 +35,11 @@ def main(argv):
 		sizeArr *= 2
 	fig = plt.figure()
 	ax = plt.axes()
+	plt.plot(arrN, arrFlip)
+	plt.title("Number of Flips for Size n")
+	plt.xlabel("Size of Array")
+	plt.ylabel("Number of Flips")
+	plt.show()
 	#We can see that it takes roughly n/2 flips for an array of size n
 
 
