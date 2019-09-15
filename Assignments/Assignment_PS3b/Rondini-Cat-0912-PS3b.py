@@ -2,18 +2,25 @@ import sys
 import random
 
 def calcStops(k, lst_pods):
-	stop_pods = []
-	curr_loc = lst_pods[0] #Placeholder for robot's current location
-	remaining_dist = k
-	for i in range(len(lst_pods) - 1): #Checking possibily of completion
+	stop_pods = [] #c_{1}
+	curr_loc = lst_pods[0] #c_{1} #Placeholder for robot's current location
+	remaining_dist = k #c_{1}
+
+
+	for i in range(len(lst_pods) - 1): #O(n) #Checking possibily of completion
 		if(lst_pods[i+1] - lst_pods[i]) > k:
 			return "Cannot complete route!"
 	
-	for i in range(len(lst_pods)):
-		if(remaining_dist - lst_pods[i]) < 0:
+	index_pods = lst_pods.copy() #O(n) #Create list we can edit
+
+	for i in range(len(index_pods)): #O(n)
+		if(remaining_dist - (index_pods[i] - curr_loc)) < 0:
 			stop_pods.append(lst_pods[i-1])
 			remaining_dist = k
-		remaining_dist -= lst_pods[i]
+			curr_loc = lst_pods[i-1]
+		else:
+			remaining_dist -= (index_pods[i] - curr_loc)
+			curr_loc = lst_pods[i]
 
 	return stop_pods
 
