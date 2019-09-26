@@ -34,9 +34,9 @@ def main(args):
 	Pods_locs = int(args[2]) #Number of pod locations
 
 	#We build the test list here
-	while len(lst_pods) < Pods_locs:
-		new_int = round(random.uniform(1, 5)*10)
-		if(new_int not in lst_pods):
+	while len(lst_pods) < Pods_locs: 
+		new_int = round(random.uniform(1, 5)*10) 
+		if(new_int not in lst_pods): 
 			lst_pods.append(new_int)
 
 
