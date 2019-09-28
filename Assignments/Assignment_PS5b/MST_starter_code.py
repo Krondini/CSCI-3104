@@ -93,7 +93,7 @@ def find(vertex):
 ####################################################################################
 
 
-def union():
+def union(C_i, C_j):
     #TODO
     pass
 
@@ -107,7 +107,7 @@ if __name__ == '__main__':
     G = miles_graph()
 
     print("Loaded miles_dat.txt containing 128 cities.")
-    print("digraph has %d nodes with %d edges"
+    print("Diagraph has %d nodes with %d edges"
           % (nx.number_of_nodes(G), nx.number_of_edges(G)))
 
 
@@ -150,7 +150,8 @@ if __name__ == '__main__':
     # 'kruskal_selected_edges' list
     # You are allowed to change the signature of the union function
 
-
+    def populate_MST(list_of_edges):
+    	
 
 
 
