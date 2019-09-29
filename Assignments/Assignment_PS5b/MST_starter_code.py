@@ -94,8 +94,12 @@ def find(vertex):
 
 
 def union(C_i, C_j):
-    #TODO
-    pass
+    if(len(components[C_i]) > len(components[C_j])): #One set is larger than the other
+    	for i in components[C_j]:
+    		leader_dict[i] = leader_dict[C_i]
+    else: #Either the other set is larger or they are the same size
+    	for i in components[C_i]:
+    		leader_dict[i] = leader_dict[C_j]
 
 
 
@@ -149,14 +153,20 @@ if __name__ == '__main__':
     # and use it along with the find() to write Kruskal's algorithm to populate
     # 'kruskal_selected_edges' list
     # You are allowed to change the signature of the union function
-    for i in range(len(sorted_edges)):
+    for i in sorted_edges:
     	if(find(i[0]) != find(i[1])): #Find leader of u and v in (u,v)
     		union(i[0], i[1]) #Merge both together
-    		kruskal_selected_edges.append(sorted_edges[i]) #Add i to T
+    
+    largest_comp = []
+    for i in components.keys():
+    	if(len(components[i]) > len(largest_comp)):
+    		largest_comp = components[i]
 
+    
 
 
     # Do not remove this line, it will save the MST as a figure for you
     draw_graph(G, kruskal_selected_edges, sorted_edges)
 
-    return kruskal_selected_edges
+    for i in kruskal_selected_edges:
+	    print(i)
