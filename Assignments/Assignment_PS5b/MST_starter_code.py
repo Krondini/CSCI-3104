@@ -149,11 +149,14 @@ if __name__ == '__main__':
     # and use it along with the find() to write Kruskal's algorithm to populate
     # 'kruskal_selected_edges' list
     # You are allowed to change the signature of the union function
-
-    def populate_MST(list_of_edges):
-    	
+    for i in range(len(sorted_edges)):
+    	if(find(i[0]) != find(i[1])): #Find leader of u and v in (u,v)
+    		union(i[0], i[1]) #Merge both together
+    		kruskal_selected_edges.append(sorted_edges[i]) #Add i to T
 
 
 
     # Do not remove this line, it will save the MST as a figure for you
     draw_graph(G, kruskal_selected_edges, sorted_edges)
+
+    return kruskal_selected_edges
