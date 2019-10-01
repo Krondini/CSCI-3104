@@ -167,11 +167,21 @@ if __name__ == '__main__':
     # 'kruskal_selected_edges' list
     # You are allowed to change the signature of the union function
 
+
+    #At the last round, we have 1 more edge to add, 2 components
+    #At the second to last round, we have 2 more edges to add, 3 components
+    #At the kth to last round, we have k more edges to add, k + 1 components
+    	#Thus if we want k + 1 clusters, we need to sore the edge value at the kth round
+    	#Likewise, if we want k clusters, we stop at the k - 1 iteration
+    
+    curr_iteration = 1
     for u, v in sorted_edges:
+    	curr_length = length_of_edge[(u,v)]['weight']
     	if(find(u) != find(v)): #Find leader of u and v in (u,v)
+    		print("At the %dth iteration, spacing value is: %d" % (curr_iteration, curr_length))
     		kruskal_selected_edges.append((u,v))
     		union(u, v) #Merge both together
-
+    		curr_iteration += 1
 
     # Do not remove this line, it will save the MST as a figure for you
     draw_graph(G, kruskal_selected_edges, sorted_edges)
