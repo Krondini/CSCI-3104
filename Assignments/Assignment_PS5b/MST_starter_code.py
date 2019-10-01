@@ -69,12 +69,13 @@ def draw_graph(G, kruskal_selected_edges, sorted_edges):
 
     if len(kruskal_selected_edges) > 0:
         non_MST_edges = [edge for edge in sorted_edges if edge not in kruskal_selected_edges]
-        nx.draw_networkx_edges(G, pos,
-                               edgelist=kruskal_selected_edges, width=0.5, edge_color='g')
+        
         print("\nNumber of edges selected by Kruskal's = ", len(kruskal_selected_edges))
 
         nx.draw_networkx_edges(G, pos, edgelist=non_MST_edges,
                                 width=1, alpha=0.5, edge_color='b')
+        nx.draw_networkx_edges(G, pos,
+                               edgelist=kruskal_selected_edges, width=1, edge_color='r')
         title = ", Edges in the MST = " + str(len(kruskal_selected_edges))
     else:
         nx.draw_networkx_edges(G, pos, edgelist=sorted_edges,
