@@ -92,16 +92,29 @@ def find(vertex):
 
 ####################################################################################
 
+#Take 2 verts, find components
+#Find the smaller of the components
+#Change leaders of all verts in smaller component to larger comp
+	# Adjust leader_dict
+#Add verts in smaller components to larger components
+	# Adjust components[]
+def union(u, v):
+	comp_u = find(u) # This is the component leader of vertex 'u'
+	comp_v = find(v) # This is the component leader of vertex 'v'
+	
+	if(len(components[comp_u]) > len(components[comp_v])): #First component is larger
+		#Change leaders of elements in components[comp_v] to leader of components[comp_u]
+		#Extend components[comp_u] with components[comp_v]
+		for i in components[comp_v]:
+			leader_dict[i] = leader_dict[comp_u]
+		components[comp_u].extend(components[comp_v])
 
-def union(C_i, C_j):
-    if(len(components[C_i]) > len(components[C_j])): #One set is larger than the other
-    	for i in components[C_j]:
-    		leader_dict[i] = leader_dict[C_i]
-    else: #Either the other set is larger or they are the same size
-    	for i in components[C_i]:
-    		leader_dict[i] = leader_dict[C_j]
-
-
+	else: #Either the other component is larger or they are the same size
+		#Change leaders of elements in components[comp_s] to leader of components[comp_v]
+		#Extend components[comp_v] with components[comp_u]
+		for i in components[comp_u]:
+			leader_dict[i] = leader_dict[comp_v]
+		components[comp_v].extend(components[comp_u])
 
 if __name__ == '__main__':
     ########## DO NOT MODIFY THE CODE IN THIS BLOCK ################################
@@ -153,20 +166,15 @@ if __name__ == '__main__':
     # and use it along with the find() to write Kruskal's algorithm to populate
     # 'kruskal_selected_edges' list
     # You are allowed to change the signature of the union function
-    for i in sorted_edges:
-    	if(find(i[0]) != find(i[1])): #Find leader of u and v in (u,v)
-    		union(i[0], i[1]) #Merge both together
-    
-    largest_comp = []
-    for i in components.keys():
-    	if(len(components[i]) > len(largest_comp)):
-    		largest_comp = components[i]
 
-    
+    for u, v in sorted_edges:
+    	if(find(u) != find(v)): #Find leader of u and v in (u,v)
+    		kruskal_selected_edges.append((u,v))
+    		union(u, v) #Merge both together
 
 
     # Do not remove this line, it will save the MST as a figure for you
     draw_graph(G, kruskal_selected_edges, sorted_edges)
 
-    for i in kruskal_selected_edges:
-	    print(i)
+    # for i in kruskal_selected_edges:
+	   #  print(i)
