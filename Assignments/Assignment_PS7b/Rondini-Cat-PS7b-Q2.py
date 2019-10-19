@@ -1,6 +1,7 @@
 import random
 import sys
 
+
 def bubbleSort(list_of_nums):
 	
 	num_flips = 0
@@ -13,8 +14,23 @@ def bubbleSort(list_of_nums):
 
 	return num_flips
 
-def n_logn_count(list_of_nums):
-	print()
+def partition(A, left, right):
+	low = (left-1)
+	pivot = A[right]
+
+	for i in range(left, right):
+		if A[i] < pivot:
+			low += 1
+			A[low], A[i] = A[i], A[low]
+
+	A[low+1], A[right] = A[right], A[i+1]
+	return (i+1)
+
+def quickSort(list_of_nums, left, right):
+	if (left<right):
+		q = partition(list_of_nums, left, right)
+		quickSort(list_of_nums, left, q-1)
+		quickSort(list_of_nums, q+1, right)
 
 def main(argv):
 	# range_of_nums = int(input("Please enter how many numbers you would like to generate: "))
@@ -28,7 +44,14 @@ def main(argv):
 
 	n_squared_flips = bubbleSort(list_of_nums)
 	print("There are %d flips in our list!" % (n_squared_flips))
-	
+	print()
+
+	random.shuffle(list_of_nums)
+	print(list_of_nums)
+	print()
+
+	quickSort(list_of_nums, 0, len(list_of_nums)-1)
+	print(list_of_nums)
 
 if __name__ == '__main__':
 	main(sys.argv)
