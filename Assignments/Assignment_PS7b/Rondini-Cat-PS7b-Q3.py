@@ -1,35 +1,35 @@
-from sys import argv
-import math
-import random
+'''
+# Takes in a list and its bounds as parameters
+# Function will split the list in half recursively 
+# in order to search for the maximum h-index 
+# Will return the maximum h-index of the list
+'''
+def calcIndex(N, left, right):
+	
+	median = len(N)//2
 
-def quickSelect(Arr, left, right, k):
+	if (len(N)%2) == 0: #Even number of elements, adjust median
+		median -= 1
 
-	middle = ((right - left)//2) #Find the midpoint of the array
+	if N[median+1] >= median+2: #h-index is larger than the median
+		return calcIndex(N, median+1, right)	
 
-	if k == middle: #Base case
-		return Arr[middle] 
+	elif(N[median] >= median+1):
+		return median + 1
 
-	elif(k < middle): #Item we care about is less than the pivot
-		return quickSelect(Arr, middle, right, k)
+	else:
+		return calcIndex(N, left, median-1)
 
-	else: #Item we care about is greater than the pivot
-		return quickSelect(Arr, left, middle, k)
+def main():
+	
+	lst = [7, 6, 4, 3, 1, 0] #Even elements test
 
+	print(lst)
+	print(calcIndex(lst, 0, len(lst)-1))
 
-def calcIndex(N):
-	print("Hello")
-
-def main(argv):
-	lst = [1, 2, 3, 4, 5]
-	lst2 = []
-	for i in range(10):
-		lst2.append(random.randint(0, 100))
-
-	lst2.sort()
-	print(quickSelect(lst, 0, len(lst)-1, 3))
-	print()
-	print(quickSelect(lst2, 0, len(lst)-1, 4))
-
+	lst2 = [6, 5, 3, 1, 0] #Odd elements test
+	print(lst2)
+	print(calcIndex(lst2, 0, len(lst2)-1))
 
 if __name__ == '__main__':
-	main(argv)
+	main()
