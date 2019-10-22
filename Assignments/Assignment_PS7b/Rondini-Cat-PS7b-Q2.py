@@ -70,10 +70,10 @@ def main(argv):
 	fig2, n_squared = plt.subplots()
 
 	n_lgn.plot(list_of_lgn_inputs, list_of_lgn_flips)
-	n_lgn.set(xlabel="Size of inputs (2^n)", ylabel="Number of flips", title="Quick Sort")
+	n_lgn.set(xlabel="Size of inputs", ylabel="Number of flips", title="Quick Sort")
 
 	n_squared.plot(list_of_square_inputs, list_of_square_flips)
-	n_squared.set(xlabel="Size of inputs (2^n)", ylabel="Number of flips", title="Bubble Sort")
+	n_squared.set(xlabel="Size of inputs", ylabel="Number of flips", title="Bubble Sort")
 
 
 	fig1.savefig("BubbleSort.png")
