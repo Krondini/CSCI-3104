@@ -39,8 +39,8 @@ def constantSpacePell(n):
 		next_Pell = (2*Pell_0 + Pell_1)
 		Pell_0 = Pell_1
 		Pell_1 = next_Pell
-		print("The current Pell number is: %d" % next_Pell)
-
+		
+	print("The %dth Pell number is: %d" % (n, next_Pell))
 	return next_Pell
 
 def main(args):
@@ -49,7 +49,7 @@ def main(args):
 
 	# print(bottomUpPell(num_Pells, M))
 
-	print(constantSpacePell(num_Pells))
+	constantSpacePell(num_Pells)
 	# for i in range(num_Pells + 1): #Generate Pell numbers
 	# 	nth_Pell = memoPell(i)
 	# 	M.append(nth_Pell)
