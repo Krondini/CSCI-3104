@@ -47,8 +47,47 @@ def allignStrings(string_x, string_y, c_insert, c_delete, c_sub):
 	return S
 
 
+
 def extractAllignment(S_matrix, string_x, string_y, c_insert, c_delete, c_sub):
-	print("extractAllignment")
+	# print("extractAllignment")
+
+	allign_result = []
+
+	i = len(S_matrix[0])-1
+	j = len(S_matrix)-1
+
+	while(i != 1) and (j != 1):
+		print(i,j)
+		round_min = min(int(S_matrix[i - 1][j]), int(S_matrix[i][j - 1]), int(S_matrix[i - 1][j - 1]))
+
+		if(round_min == int(S_matrix[i - 1][j])):
+			allign_result.append("delete")
+			i-=1
+
+		elif(round_min == int(S_matrix[i][j - 1])):
+			allign_result.append("insert")
+			j-=1
+
+		else:
+			if(S_matrix[i][j] == S_matrix[i - 1][j - 1]):
+				allign_result.append("no-op")
+			else:
+				allign_result.append("sub")
+			i-=1
+			j-=1
+
+		if i == 1:
+			while j != 1:
+				allign_result.append("insert")
+				j-=1
+
+		elif j == 1:
+			while i != 1:
+				allign_result.append("delete")
+				i-=1
+
+	allign_result.reverse()
+	return allign_result
 
 
 def commonSubstrings(string_x, int_L, opt_edits):
@@ -80,6 +119,9 @@ def main(args):
 	c_sub = int(input("Please enter the cost of a substitute: "))
 	S = allignStrings(string_x, string_y, c_insert, c_delete, c_sub)
 
+	final_pos = extractAllignment(S, string_x, string_y, c_insert, c_delete, c_sub)
+	print(final_pos)
+
 	# system("clear") #Clear screen
 
 	# for i in range(1, len(S[0])):
@@ -87,6 +129,8 @@ def main(args):
 	#
 	# for i in range(1, len(S)):
 	# 	S[i][0] = string_y[i-1]
+
+
 
 	for i in range(len(S)):
 		print(S[i])
