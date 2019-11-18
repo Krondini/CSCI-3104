@@ -139,18 +139,19 @@ def main(args):
 	c_delete = int(input("Please enter the cost of a delete: "))
 	c_sub = int(input("Please enter the cost of a substitute: "))
 	S = allignStrings(string_x, string_y, c_insert, c_delete, c_sub)
+	int_L = int(input("Please enter your chosen integer L: "))
+	final_pos = extractAllignment(S, string_x, string_y, c_insert, c_delete, c_sub)
+	list_of_substrings = commonSubstrings(string_x, int_L, final_pos)	
+
+	system("clear") #Clear screen
 
 	for i in range(len(S)):
 		print(S[i])
 
-	final_pos = extractAllignment(S, string_x, string_y, c_insert, c_delete, c_sub)
 	print(final_pos)
 
-	int_L = int(input("Please enter your chosen integer L: "))
-	list_of_substrings = commonSubstrings(string_x, int_L, final_pos)
 	print(list_of_substrings)
 
-	# system("clear") #Clear screen
 
 	# for i in range(1, len(S[0])):
 	# 	S[0][i] = string_x[i-1]
