@@ -90,9 +90,22 @@ def extractAllignment(S_matrix, string_x, string_y, c_insert, c_delete, c_sub):
 	return allign_result
 
 
+def findSubstrings(string_x, int_L):
+
+	list_of_substrings = []
+	
+	for i in range(len(string_x) - int_L):
+		for j in range(len(string_x) - i):
+			if(string_x[i:int_L+i+j]) not in list_of_substrings:
+				list_of_substrings.append(string_x[i:int_L+i+j])
+
+	return list_of_substrings
+
 def commonSubstrings(string_x, int_L, opt_edits):
 	print("commonSubstrings")
 
+	new_list = findSubstrings(string_x, int_L)
+	return new_list
 
 def readFile(filename):
 
@@ -119,8 +132,15 @@ def main(args):
 	c_sub = int(input("Please enter the cost of a substitute: "))
 	S = allignStrings(string_x, string_y, c_insert, c_delete, c_sub)
 
+	for i in range(len(S)):
+		print(S[i])
+
 	final_pos = extractAllignment(S, string_x, string_y, c_insert, c_delete, c_sub)
 	print(final_pos)
+
+	int_L = int(input("Please enter your chosen integer L: "))
+	list_of_substrings = commonSubstrings(string_x, int_L, final_pos)
+	print(list_of_substrings)
 
 	# system("clear") #Clear screen
 
@@ -130,10 +150,6 @@ def main(args):
 	# for i in range(1, len(S)):
 	# 	S[i][0] = string_y[i-1]
 
-
-
-	for i in range(len(S)):
-		print(S[i])
 
 
 	return 0
