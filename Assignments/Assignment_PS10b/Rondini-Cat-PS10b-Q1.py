@@ -90,22 +90,30 @@ def extractAllignment(S_matrix, string_x, string_y, c_insert, c_delete, c_sub):
 	return allign_result
 
 
-def findSubstrings(string_x, int_L):
-
-	list_of_substrings = []
-	
-	for i in range(len(string_x) - int_L):
-		for j in range(len(string_x) - i):
-			if(string_x[i:int_L+i+j]) not in list_of_substrings:
-				list_of_substrings.append(string_x[i:int_L+i+j])
-
-	return list_of_substrings
-
 def commonSubstrings(string_x, int_L, opt_edits):
 	print("commonSubstrings")
 
-	new_list = findSubstrings(string_x, int_L)
-	return new_list
+	count = 0
+	found = False
+	beginning = 0
+	result = []
+
+	for i in range(len(string_x)):
+		if(opt_edits[i] == "no-op"): count += 1
+
+		if count == int_L:
+			found = True
+			beginning = i - (int_L-1)
+
+		if (found and (opt_edits[i] != "no-op")):
+			result.append(string_x[beginning:i])
+			found = False
+			count = 0
+
+		elif (found and (i == (len(string_x)-1))):
+			result.append(string_x[beginning:i+1])
+
+	return result
 
 def readFile(filename):
 
