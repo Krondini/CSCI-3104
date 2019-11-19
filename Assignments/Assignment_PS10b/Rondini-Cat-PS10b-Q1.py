@@ -91,7 +91,7 @@ def extractAllignment(S_matrix, string_x, string_y, c_insert, c_delete, c_sub):
 
 
 def commonSubstrings(string_x, int_L, opt_edits):
-	print("commonSubstrings")
+	# print("commonSubstrings")
 
 	count = 0
 	found = False
@@ -117,48 +117,62 @@ def commonSubstrings(string_x, int_L, opt_edits):
 
 def readFile(filename):
 
-	list_of_words = []
 	fo = open(filename, 'r')
-
-	for line in fo:
-		line = line.strip().split()
-		list_of_words.append(line)
+	list_of_words = fo.read()
 
 	return list_of_words
+
+
+def compareFiles(file1, file2, c_insert, c_delete, c_sub):
+	# print("compareFiles")
+
+	result = []
+
+	S_matrix = allignStrings(file1, file2, c_insert, c_delete, c_sub)
+	opt_edits = extractAllignment(S_matrix, file1, file2, c_insert, c_delete, c_sub)
+	result.append(commonSubstrings(file1, 10, opt_edits))
+
+	return result
 
 
 def main(args):
 	# print("main")
 
-	file1 = args[1] #Read in file 1 for Plagerism Detector
-	file2 = args[2] #Read in file 2 for Plagerism Detector
-
-	string_x = input("Please enter your first string: ")
-	string_y = input("Please enter your second string: ")
 	c_insert = int(input("Please enter the cost of an insert: "))
 	c_delete = int(input("Please enter the cost of a delete: "))
 	c_sub = int(input("Please enter the cost of a substitute: "))
-	S = allignStrings(string_x, string_y, c_insert, c_delete, c_sub)
-	int_L = int(input("Please enter your chosen integer L: "))
-	final_pos = extractAllignment(S, string_x, string_y, c_insert, c_delete, c_sub)
-	list_of_substrings = commonSubstrings(string_x, int_L, final_pos)	
 
-	system("clear") #Clear screen
+	try:
+		file1 = readFile(args[1]) #Read in file 1 for Plagerism Detector
+		file2 = readFile(args[2]) #Read in file 2 for Plagerism Detector
+		plagerism = str(compareFiles(file1, file2, c_insert, c_delete, c_sub))
 
-	for i in range(len(S)):
-		print(S[i])
+		list_of_copied_words = plagerism.strip().split(',')
 
-	print(final_pos)
+		system("clear")
 
-	print(list_of_substrings)
+		for i in list_of_copied_words:
+			print(i)
+
+	except IndexError:
+		string_x = input("Please enter your first string: ")
+		string_y = input("Please enter your second string: ")
+
+		S = allignStrings(string_x, string_y, c_insert, c_delete, c_sub)
+		int_L = int(input("Please enter your chosen integer L: "))
+		final_pos = extractAllignment(S, string_x, string_y, c_insert, c_delete, c_sub)
+		list_of_substrings = commonSubstrings(string_x, int_L, final_pos)
 
 
-	# for i in range(1, len(S[0])):
-	# 	S[0][i] = string_x[i-1]
-	#
-	# for i in range(1, len(S)):
-	# 	S[i][0] = string_y[i-1]
 
+	# system("clear") #Clear screen
+
+		for i in range(len(S)):
+			print(S[i])
+
+			print(final_pos)
+
+			print(list_of_substrings)
 
 
 	return 0
