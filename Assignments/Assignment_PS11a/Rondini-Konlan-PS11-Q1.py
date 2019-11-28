@@ -13,11 +13,11 @@ def hash1(string_of_letters, dict_of_letters, num_buckets):
 
 	return index_sum
 
-def hash2(string_of_letters, dict_of_letters, num_buckets):
+def hash2(string_of_letters, dict_of_letters, num_buckets, random_int):
 	
 	index_sum = 0
 	for letter in string_of_letters:
-		sum_to_add = retIndex(letter, dict_of_letters) * randint(0, num_buckets-1)
+		sum_to_add = retIndex(letter, dict_of_letters) * random_int
 		print(letter, sum_to_add)
 		index_sum += sum_to_add
 
@@ -35,6 +35,17 @@ def retIndex(letter, dict_of_letters):
 	return dict_of_letters.get(letter)
 
 
+def readFile(filename):
+
+	fo = open(filename, 'r')
+
+	words = []
+	for line in fo:
+		line = line.strip().split()
+		words.append(line)
+
+	return words
+
 def main(args):
 	
 	dict_of_letters = {}
@@ -43,9 +54,11 @@ def main(args):
 		dict_of_letters[letter] = counter
 		counter += 1
 
-	string_of_letters = input("Enter a string: ")
-	num_buckets = int(input("Enter number of buckets: "))
-	print(hash2(string_of_letters, dict_of_letters, num_buckets))
+	list_or_words = readFile(args[1])
+	num_buckets = int(args[2])
+	univ_random_int = randint(0, num_buckets)
+	
+	print(hash2(string_of_letters, dict_of_letters, num_buckets, univ_random_int))
 
 
 if __name__ == '__main__':
