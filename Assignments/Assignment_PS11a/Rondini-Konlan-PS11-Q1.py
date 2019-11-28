@@ -1,6 +1,7 @@
 from sys import argv
 from string import ascii_uppercase
-from random import randint
+from random import randint, shuffle
+import matplotlib.pyplot as plt
 
 def hash1(string_of_letters, dict_of_letters, num_buckets):
 
@@ -18,7 +19,6 @@ def hash2(string_of_letters, dict_of_letters, num_buckets, random_int):
 	index_sum = 0
 	for letter in string_of_letters:
 		sum_to_add = retIndex(letter, dict_of_letters) * random_int
-		print(letter, sum_to_add)
 		index_sum += sum_to_add
 
 	index_sum %= num_buckets
@@ -54,12 +54,41 @@ def main(args):
 		dict_of_letters[letter] = counter
 		counter += 1
 
-	list_or_words = readFile(args[1])
+	lines_from_file = readFile(args[1])
 	num_buckets = int(args[2])
 	univ_random_int = randint(0, num_buckets)
-	
-	print(hash2(string_of_letters, dict_of_letters, num_buckets, univ_random_int))
 
+	print("File has %d lines" % len(lines_from_file))
+
+	list_of_names = []
+
+	for i in range(len(lines_from_file)): list_of_names.append(lines_from_file[i][0])
+	
+	shuffle(list_of_names)
+
+	#Pick half of the names
+	random_names = []
+	for i in range(len(list_of_names)//2): random_names.append(list_of_names[i])
+
+
+	#Histogram of hash1
+	list_from_hash1 = []
+	for i in range(len(random_names)):
+		new_index = hash1(random_names[i], dict_of_letters, num_buckets)
+		list_from_hash1.append(new_index)
+		print(list_from_hash1[i])
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+
+	#Histogram of hash2
+	list_from_hash2 = []
+	for i in range(len(random_names)):
+		new_index = hash2(random_names[i], dict_of_letters, num_buckets, univ_random_int)
+		list_from_hash2.append(new_index)
+		print(list_from_hash2[i])
+
+
+	return 0
 
 if __name__ == '__main__':
 	main(argv)
