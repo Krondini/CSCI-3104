@@ -96,6 +96,7 @@ def main(args):
 	plt.title("1st Hash Function")
 	plt.savefig("Hash1.png")
 	plt.show()
+	
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 
 	#Histogram of hash2
@@ -111,6 +112,10 @@ def main(args):
 	plt.title("2nd Hash Function")
 	plt.savefig("Hash2.png")
 	plt.show()
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+
+
 	return 0
 
 if __name__ == '__main__':
