@@ -4,6 +4,12 @@ from random import randint, shuffle
 from os import system
 import matplotlib.pyplot as plt
 
+
+'''
+Bad Hash function
+Uses a single hash for each letter
+Returns the index of the provided word
+'''
 def hash1(string_of_letters, dict_of_letters, num_buckets):
 
 	index_sum = 0
@@ -15,6 +21,11 @@ def hash1(string_of_letters, dict_of_letters, num_buckets):
 
 	return index_sum
 
+'''
+Better (not perfect) hash function
+Uses a random integer to further hash each letter
+Returns the index of the provided word
+'''
 def hash2(string_of_letters, dict_of_letters, num_buckets, random_int):
 	
 	index_sum = 0
