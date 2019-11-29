@@ -1,6 +1,7 @@
 from sys import argv
 from string import ascii_uppercase
 from random import randint, shuffle
+from os import system
 import matplotlib.pyplot as plt
 
 def hash1(string_of_letters, dict_of_letters, num_buckets):
@@ -78,6 +79,12 @@ def main(args):
 		list_from_hash1.append(new_index)
 		print(list_from_hash1[i])
 
+	plt.hist(list_from_hash1, color="orange")
+	plt.xlabel("Bucket Location")
+	plt.ylabel("Length of Chain")
+	plt.title("1st Hash Function")
+	plt.savefig("Hash1.png")
+	plt.show()
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 
 	#Histogram of hash2
@@ -87,7 +94,12 @@ def main(args):
 		list_from_hash2.append(new_index)
 		print(list_from_hash2[i])
 
-
+	plt.hist(list_from_hash2, color="green")
+	plt.xlabel("Bucket Location")
+	plt.ylabel("Length of Chain")
+	plt.title("2nd Hash Function")
+	plt.savefig("Hash2.png")
+	plt.show()
 	return 0
 
 if __name__ == '__main__':
