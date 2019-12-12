@@ -86,13 +86,14 @@ def main(args):
 
 	#Histogram of hash1
 	list_from_hash1 = []
+	length_of_chains_1 = [0 for i in range(num_buckets)]
 	longest_chain_from_hash1 = []
 	for i in range(len(random_names)):
 		new_index = hash1(random_names[i], dict_of_letters, num_buckets)
 		list_from_hash1.append(new_index)
-		# max_chain = max([len(list(group)) for key, group in groupby(list_from_hash1)])
-		# longest_chain_from_hash1.append(max_chain)
-		print(list_from_hash1[i])
+		length_of_chains_1[new_index] += 1
+		longest_chain_from_hash1.append(max(length_of_chains_1))
+
 
 	plt.hist(list_from_hash1, color="orange")
 	plt.xlabel("Bucket Location")
@@ -105,10 +106,14 @@ def main(args):
 
 	#Histogram of hash2
 	list_from_hash2 = []
+	length_of_chains_2 = [0 for i in range(num_buckets)]
+	longest_chain_from_hash2 = []
 	for i in range(len(random_names)):
 		new_index = hash2(random_names[i], dict_of_letters, num_buckets, univ_random_int)
 		list_from_hash2.append(new_index)
-		print(list_from_hash2[i])
+		length_of_chains_2[new_index] += 1
+		longest_chain_from_hash2.append(max(length_of_chains_2))
+
 
 	plt.hist(list_from_hash2, color="green")
 	plt.xlabel("Bucket Location")
@@ -118,7 +123,18 @@ def main(args):
 	plt.show()
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+	
+	#Plot for Q1c
+	plt.plot(longest_chain_from_hash1)
+	plt.title("Longest Chain from Hash 1")
+	plt.savefig("Longest_Chain_Hash1.png")
+	plt.show()
 
+	#Plot for Q1d
+	plt.plot(longest_chain_from_hash2)
+	plt.title("Longest Chain from Hash 2")
+	plt.savefig("Longest_Chain_Hash2.png")
+	plt.show()	
 
 	return 0
 
