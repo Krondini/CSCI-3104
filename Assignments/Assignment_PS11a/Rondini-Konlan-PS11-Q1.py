@@ -2,6 +2,7 @@ from sys import argv
 from string import ascii_uppercase
 from random import randint, shuffle
 from os import system
+from itertools import groupby
 import matplotlib.pyplot as plt
 
 
@@ -85,9 +86,12 @@ def main(args):
 
 	#Histogram of hash1
 	list_from_hash1 = []
+	longest_chain_from_hash1 = []
 	for i in range(len(random_names)):
 		new_index = hash1(random_names[i], dict_of_letters, num_buckets)
 		list_from_hash1.append(new_index)
+		# max_chain = max([len(list(group)) for key, group in groupby(list_from_hash1)])
+		# longest_chain_from_hash1.append(max_chain)
 		print(list_from_hash1[i])
 
 	plt.hist(list_from_hash1, color="orange")
